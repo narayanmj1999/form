@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register of Admissions and Withdrawals - Karnataka</title>
+
+<style>
+    * { box-sizing: border-box; }
+
+    :root {
+        --blue: #2f6fae;
+        --dark-blue: #1f5f9e;
+        --border: #c7d5e3;
+        --light: #eef4f8;
+        --text: #111;
+    }
+
+    body {
+        margin: 0;
+        background: #f5f7f9;
+        color: var(--text);
+        font-family: Arial, "Noto Sans Kannada", "Tunga", sans-serif;
+        font-size: 12px;
+    }
+
+    .page {
+        width: 750px;
+        min-height: 1050px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 12px 28px 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 7px;
+    }
+
+    button {
+        border: 0;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .btn {
+        color: #fff;
+        background: #4b596b;
+        border-radius: 4px;
+        padding: 6px 11px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .print-btn {
+        background: var(--blue);
+        min-width: 124px;
+    }
+
+    .btn:hover { opacity: .9; }
+
+    .title-box {
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        background: linear-gradient(#f8fbfd, #eef4f8);
+        text-align: center;
+        padding: 8px 10px 7px;
+        margin-bottom: 8px;
+    }
+
+    .title-kn {
+        font-size: 16px;
+        font-weight: 700;
+        color: #173e62;
+        line-height: 1.35;
+    }
+
+    .subtitle {
+        margin-top: 2px;
+        font-size: 10px;
+        color: #516477;
+        font-style: italic;
+    }
+
+    .top-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        margin-bottom: 6px;
+    }
+
+    .field {
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        min-height: 34px;
+        padding: 5px 7px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: #fff;
+    }
+
+    .field.full {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        white-space: nowrap;
+        font-weight: 600;
+        font-size: 11px;
+    }
+
+    input, textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid #c6d5e3;
+        border-radius: 4px;
+        outline: none;
+        background: #fff;
+        padding: 5px 7px;
+        font-family: inherit;
+        font-size: 12px;
+        color: #222;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #5790c2;
+        box-shadow: 0 0 0 2px rgba(47,111,174,.10);
+    }
+
+    input::placeholder, textarea::placeholder {
+        color: #9aa5ae;
+        opacity: 1;
+    }
+
+    .register {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin-top: 1px;
+    }
+
+    .register th {
+        background: var(--blue);
+        color: #fff;
+        border: 1px solid #d9e3ed;
+        height: 25px;
+        font-size: 11px;
+        padding: 4px;
+        text-align: center;
+    }
+
+    .register td {
+        border: 1px solid #c7d5e3;
+        padding: 3px 5px;
+        vertical-align: middle;
+        height: 34px;
+        font-size: 10.5px;
+        line-height: 1.2;
+    }
+
+    .register .col-no {
+        width: 56px;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .register .particular {
+        width: 365px;
+        font-weight: 600;
+    }
+
+    .register .entry {
+        width: auto;
+    }
+
+    .register td.entry-cell {
+        padding: 3px 5px;
+    }
+
+    .register input {
+        height: 23px;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+
+    .certified {
+        margin-top: 7px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: #eef4f8;
+        text-align: center;
+        color: #174e7d;
+        font-size: 10px;
+        line-height: 1.25;
+        padding: 6px 8px;
+    }
+
+    .bottom-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 155px;
+    }
+
+    .place-date {
+        width: 225px;
+        font-size: 11px;
+        line-height: 2.2;
+    }
+
+    .place-date .line {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .place-date label {
+        width: 66px;
+    }
+
+    .place-date input {
+        height: 22px;
+        padding: 2px 6px;
+    }
+
+    .signature {
+        width: 170px;
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .seal {
+        height: 29px;
+        width: 92px;
+        margin: 0 auto 6px;
+        border: 1px dashed #9cb5cb;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6c87a0;
+        font-size: 9px;
+        font-weight: 400;
+    }
+
+    .signature-line {
+        border-top: 1px solid #555;
+        padding-top: 4px;
+        line-height: 1.25;
+    }
+
+    .website {
+        width: 405px;
+        margin: 53px auto 0;
+        padding: 11px 16px;
+        border-radius: 9px;
+        background: #176cc1;
+        color: #fff;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.35;
+        box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    }
+
+    .website small {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .website a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .website a:hover { text-decoration: underline; }
+
+    .status {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+        padding: 8px 12px;
+        background: #222;
+        color: #fff;
+        border-radius: 5px;
+        display: none;
+        z-index: 100;
+    }
+
+    /* Print settings */
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    @media print {
+        body {
+            background: #fff;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0;
+            padding: 9mm 8mm 8mm;
+            box-shadow: none;
+        }
+
+        .no-print,
+        .website,
+        .status {
+            display: none !important;
+        }
+
+        .bottom-area {
+            margin-top: 145px;
+        }
+
+        input, textarea {
+            border-color: #c6d5e3 !important;
+            box-shadow: none !important;
+        }
+    }
+
+    @media screen and (max-width: 780px) {
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .top-fields {
+            grid-template-columns: 1fr;
+        }
+
+        .field.full {
+            grid-column: auto;
+        }
+
+        .register {
+            min-width: 680px;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        .bottom-area {
+            margin-top: 80px;
+        }
+
+        .website {
+            width: 90%;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="toolbar no-print">
+        <button class="btn" type="button" onclick="resetForm()">↻ &nbsp;REFRESH</button>
+        <button class="btn print-btn" type="button" onclick="printPage()">▣ &nbsp;PRINT (Portrait)</button>
+    </div>
+
+    <form id="admissionForm" autocomplete="off">
+
+        <div class="title-box">
+            <div class="title-kn">
+                ಶಾಲೆಯ ಪ್ರವೇಶ ದಾಖಲಾತಿಯ ಉರು ತೆ ಬಾಕಿ (ಶಾಲಾ ದಾಖಲೆಗಳ ರಿಜಿಸ್ಟರ್ - ನಮೂನೆ)
+            </div>
+            <div class="subtitle">
+                Extract - Register of Admissions and Withdrawals (Karnataka State)
+            </div>
+        </div>
+
+        <div class="top-fields">
+
+            <div class="field">
+                <label for="institution">ವಿದ್ಯಾಸಂಸ್ಥೆಯ ಹೆಸರು:</label>
+                <input id="institution" name="institution" placeholder="Institution Name">
+            </div>
+
+            <div class="field">
+                <label for="student">ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು:</label>
+                <input id="student" name="student" placeholder="Student Name">
+            </div>
+
+            <div class="field">
+                <label for="year">ವರ್ಷ (Year):</label>
+                <input id="year" name="year" placeholder="Year">
+            </div>
+
+            <div class="field">
+                <label for="class">ತರಗತಿ (Class):</label>
+                <input id="class" name="class" placeholder="Class">
+            </div>
+
+            <div class="field full">
+                <label for="folio">ಫೋಲಿಯೋ ನಂ (Folio No):</label>
+                <input id="folio" name="folio" placeholder="Folio No">
+            </div>
+
+        </div>
+
+        <div class="table-scroll">
+        <table class="register">
+            <thead>
+                <tr>
+                    <th class="col-no">Col No.</th>
+                    <th class="particular">Particulars / ವಿವರಗಳು</th>
+                    <th>Entries / ನಮೂದುಗಳು</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td class="col-no">(1)</td>
+                    <td class="particular">Number C.R. No. with Date (Opening Admission)</td>
+                    <td class="entry-cell"><input name="cr_date" placeholder="C.R. No & Date"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(3)</td>
+                    <td class="particular">Name of the Pupil (ವಿದ್ಯಾರ್ಥಿಯ ಹೆಸರು)</td>
+                    <td class="entry-cell"><input name="pupil_name" placeholder="Pupil Name"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(4)</td>
+                    <td class="particular">Date of Birth and Age in years (ಜನ್ಮ ದಿನಾಂಕ ಮತ್ತು ವಯಸ್ಸು)</td>
+                    <td class="entry-cell"><input name="dob_age" placeholder="DOB & Age"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(5)</td>
+                    <td class="particular">Girl or Boy (ಹೆಣ್ಣು, ಗಂಡು)</td>
+                    <td class="entry-cell"><input name="gender" placeholder="Girl / Boy"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(5A)</td>
+                    <td class="particular">Place of Birth, Taluk, District and State (ಹುಟ್ಟಿದ ಸ್ಥಳ, ತಾಲೂಕು, ಜಿಲ್ಲೆ, ರಾಜ್ಯ)</td>
+                    <td class="entry-cell"><input name="birth_place" placeholder="Birth Place Details"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(6)</td>
+                    <td class="particular">Father's Name and Occupation (ತಂದೆಯ ಹೆಸರು ಮತ್ತು ವೃತ್ತಿ)</td>
+                    <td class="entry-cell"><input name="father" placeholder="Father's Name & Occ"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(7)</td>
+                    <td class="particular">Annual Parent's Income Rs. (ಪೋಷಕರ ವಾರ್ಷಿಕ ಆದಾಯ)</td>
+                    <td class="entry-cell"><input name="income" placeholder="Annual Income"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(8)</td>
+                    <td class="particular">Number of Dependents (ಅವಲಂಬಿತರ ಸಂಖ್ಯೆ)</td>
+                    <td class="entry-cell"><input name="dependents" placeholder="No. of Dependents"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(9)</td>
+                    <td class="particular">Religion, Nationality and Caste (ಧರ್ಮ, ರಾಷ್ಟ್ರೀಯತೆ ಮತ್ತು ಜಾತಿ)</td>
+                    <td class="entry-cell"><input name="religion" placeholder="Religion, Nationality, Caste"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(10)</td>
+                    <td class="particular">Mother tongue (ತಾಯಿ ನುಡಿ)</td>
+                    <td class="entry-cell"><input name="mother_tongue" placeholder="Mother Tongue"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(11)</td>
+                    <td class="particular">Guardian's Name and Address (ಪಾಲಕರ ಹೆಸರು ಮತ್ತು ವಿಳಾಸ)</td>
+                    <td class="entry-cell"><input name="guardian" placeholder="Guardian's Name & Address"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(12)</td>
+                    <td class="particular">Permanent Address of the Pupil (ವಿದ್ಯಾರ್ಥಿಯ ಖಾಯಂ ವಿಳಾಸ)</td>
+                    <td class="entry-cell"><input name="address" placeholder="Permanent Address"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(13-21)</td>
+                    <td class="particular">Subsequent progress of the Pupil in school every year (ವಿದ್ಯಾರ್ಥಿಯ ವಾರ್ಷಿಕ ಪ್ರಗತಿ)</td>
+                    <td class="entry-cell"><input name="progress" placeholder="Progress Details"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-no">(23)</td>
+                    <td class="particular">Remarks / ಟಿಪ್ಪಣಿ</td>
+                    <td class="entry-cell"><input name="remarks" placeholder="Remarks"></td>
+                </tr>
+
+            </tbody>
+        </table>
+        </div>
+
+        <div class="certified">
+            CERTIFIED that the above entries are true and correct as per the records maintained in this institution / School.<br>
+            (ಮೇಲಿನ ಎಲ್ಲಾ ನಮೂದುಗಳು ಈ ಸಂಸ್ಥೆ / ಶಾಲೆಯಲ್ಲಿ ನಿರ್ವಹಿಸಲಾದ ದಾಖಲೆಗಳ ಪ್ರಕಾರ ಸತ್ಯ ಮತ್ತು ಸರಿಯಾಗಿವೆ ಎಂದು ಪ್ರಮಾಣೀಕರಿಸಲಾಗಿದೆ.)
+        </div>
+
+        <div class="bottom-area">
+
+            <div class="place-date">
+                <div class="line">
+                    <label for="place">ಸ್ಥಳ (Place):</label>
+                    <input id="place" name="place" placeholder="ಸ್ಥಳ">
+                </div>
+                <div class="line">
+                    <label for="date">ದಿನಾಂಕ (Date):</label>
+                    <input id="date" name="date" placeholder="ದಿನಾಂಕ">
+                </div>
+            </div>
+
+            <div class="signature">
+                <div class="seal">OFFICE SEAL</div>
+                <div class="signature-line">
+                    PRINCIPAL / HEADMASTER /<br>
+                    HEADMISTRESS
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="website no-print">
+        <a href="#" onclick="openResourceCentre(event)">
+            🌐 &nbsp;ಶೈಕ್ಷಣಿಕ ಸಂಪನ್ಮೂಲ ಕೇಂದ್ರ<br>
+            <small>School Resource Centre – Click Here to Visit</small>
+        </a>
+    </div>
+
+</div>
+
+<div id="status" class="status"></div>
+
+<script>
+    const form = document.getElementById("admissionForm");
+    const statusBox = document.getElementById("status");
+
+    // Save entered values while the page is open.
+    form.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", () => {
+            try {
+                localStorage.setItem("admission_" + input.name, input.value);
+            } catch (e) {}
+        });
+    });
+
+    // Restore saved values.
+    window.addEventListener("DOMContentLoaded", () => {
+        form.querySelectorAll("input").forEach(input => {
+            try {
+                const value = localStorage.getItem("admission_" + input.name);
+                if (value !== null) input.value = value;
+            } catch (e) {}
+        });
+    });
+
+    function printPage() {
+        window.print();
+    }
+
+    function resetForm() {
+        if (!confirm("Clear all entered information?")) return;
+
+        form.reset();
+
+        form.querySelectorAll("input").forEach(input => {
+            try {
+                localStorage.removeItem("admission_" + input.name);
+            } catch (e) {}
+        });
+
+        showStatus("Form cleared");
+    }
+
+    function showStatus(message) {
+        statusBox.textContent = message;
+        statusBox.style.display = "block";
+
+        setTimeout(() => {
+            statusBox.style.display = "none";
+        }, 1600);
+    }
+
+    function openResourceCentre(event) {
+        event.preventDefault();
+
+        // Replace this URL with your actual School Resource Centre URL.
+        const url = "https://www.google.com/";
+        window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    // Ctrl + P also opens the portrait print dialog.
+    document.addEventListener("keydown", function(event) {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "p") {
+            event.preventDefault();
+            printPage();
+        }
+    });
+</script>
+
+</body>
+</html>
